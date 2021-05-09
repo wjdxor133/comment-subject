@@ -48,6 +48,7 @@ export default function Home() {
             q.Update(ref, { data: { ...valueList, [selectedName]: valueList[selectedName] + Number(value) * 100 } })
         );
         setValueList(data);
+        setValue(undefined);
 
         setLoading(false);
     };
