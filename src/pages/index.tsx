@@ -35,6 +35,7 @@ export default function Home() {
 
     const handleChangeName = (e: any) => {
         setSelectedName(e.target.value);
+        localStorage.setItem("defaultSelectedName", e.target.value);
     };
     const handleChangeValue = (e: any) => {
         setValue(e.target.value);
@@ -60,6 +61,10 @@ export default function Home() {
     );
 
     useEffect(() => {
+        const defaultSelectedName: any = localStorage.getItem("defaultSelectedName");
+        console.log(defaultSelectedName);
+        setSelectedName(defaultSelectedName || "강현");
+
         setValueListFromDB();
     }, []);
 
@@ -79,7 +84,7 @@ export default function Home() {
                     onChange={handleChangeName}
                 >
                     {nameList.map((name: nameTypes, i: number) => (
-                        <option key={i} value={name}>
+                        <option key={i} value={name} selected={name == selectedName}>
                             {name}
                         </option>
                     ))}
