@@ -15,7 +15,7 @@ const Title = styled.div`
 `;
 
 export default function Home() {
-    const defaultTotalValue = 1200000;
+    const defaultTotalValue = 1350000;
     const ref = q.Ref(q.Collection("prices"), "298076617337471490");
     const nameList: any = Object.keys(imgURLObj);
 
