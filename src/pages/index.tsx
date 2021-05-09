@@ -67,7 +67,7 @@ export default function Home() {
 
         setValueListFromDB();
     }, []);
-
+    console.log(new Date().getMonth());
     return (
         <div style={{ margin: "0px 16px" }}>
             <Title>오늘 먹은 점심 값은?</Title>
@@ -158,7 +158,7 @@ export default function Home() {
                             height: 36,
                             fontWeight: "bold",
                         }}
-                    >{`${new Date().toLocaleDateString().split(".")[1]}월 : ${getTotalValue(valueList)}원`}</div>
+                    >{`${new Date().getMonth() + 1}월 : ${getTotalValue(valueList)}원`}</div>
                 </div>
             </div>
         </div>
