@@ -14,7 +14,9 @@ const Title = styled.div`
 `;
 
 export default function Home() {
+    const defaultTotalValue = 1200000;
     const ref = q.Ref(q.Collection("prices"), "298076617337471490");
+    const nameList: any = Object.keys(imgURLObj);
 
     const [loading, setLoading] = useState(false);
     const [value, setValue] = useState<number>();
@@ -38,24 +40,24 @@ export default function Home() {
         setValue(e.target.value);
     };
     const handleClick = async () => {
-        setValueList((prev: any) => {
-            if (value) {
-                if (prev[selectedName]) {
-                    prev[selectedName] += value * 100;
-                } else {
-                    prev[selectedName] = value * 100;
-                }
-            }
-            console.log(prev);
-            return { ...prev };
-        });
+        setLoading(true);
+
         const { data } = await db.query<any>(
             q.Update(ref, { data: { ...valueList, [selectedName]: valueList[selectedName] + Number(value) * 100 } })
         );
-        console.log(data);
+        setValueList(data);
+
+        setLoading(false);
     };
 
-    const nameList: any = Object.keys(imgURLObj);
+    const getTotalValue: any = (valueList: any) => {
+        const values = Object.values(valueList);
+        return values.reduce((acc: any, cur) => acc + cur, 0);
+    };
+
+    const percentLeftTotalvalue = Math.floor(
+        ((defaultTotalValue - getTotalValue(valueList)) / defaultTotalValue) * 100
+    );
 
     useEffect(() => {
         setValueListFromDB();
@@ -64,8 +66,18 @@ export default function Home() {
     return (
         <div style={{ margin: "0px 16px" }}>
             <Title>오늘 먹은 점심 값은?</Title>
-            <div style={{ marginBottom: 16 }}>
-                <select style={{ marginRight: 16, width: 72, fontSize: 24 }} onChange={handleChangeName}>
+            <div style={{ marginBottom: 16, height: 36 }}>
+                <select
+                    style={{
+                        marginRight: 16,
+                        height: 36,
+                        width: 72,
+                        border: "1px solid grey",
+                        borderRadius: 8,
+                        fontSize: 20,
+                    }}
+                    onChange={handleChangeName}
+                >
                     {nameList.map((name: nameTypes, i: number) => (
                         <option key={i} value={name}>
                             {name}
@@ -78,29 +90,71 @@ export default function Home() {
                         width: 64,
                         border: "none",
                         borderBottom: "1px solid grey",
-                        fontSize: 24,
+                        fontSize: 20,
                     }}
                     value={value}
                     onChange={handleChangeValue}
                 />
-                <span style={{ fontSize: 24, marginRight: 16 }}>00원</span>
-                <button style={{ fontSize: 24 }} onClick={handleClick}>
+                <span style={{ fontSize: 20, marginRight: 16 }}>00원</span>
+                <button
+                    style={{
+                        height: 36,
+                        width: 64,
+                        border: "1px solid grey",
+                        borderRadius: 8,
+                        background: "white",
+                        fontSize: 20,
+                    }}
+                    disabled={loading}
+                    onClick={handleClick}
+                >
                     입력
                 </button>
             </div>
-            <div style={{ display: "flex" }}>
-                <div style={{ flex: 1, borderRight: "1px solid grey" }}>
+            <div style={{ display: "flex", height: "90%" }}>
+                <div style={{ flex: 1 }}>
                     {nameList.map((name: nameTypes, i: number) => (
                         <LunchValue
                             key={i}
                             name={name}
-                            isSelected={selectedName}
+                            isSelected={selectedName == name}
                             value={valueList[name]}
                             loading={loading}
                         />
                     ))}
                 </div>
-                <div style={{ flex: 1 }}>총합</div>
+                <div style={{ flex: 1 }}>
+                    <div
+                        style={{
+                            display: "flex",
+                            flexDirection: "column-reverse",
+                            height: "calc(100% - 36px)",
+                            width: "100%",
+                        }}
+                    >
+                        <div
+                            style={{
+                                display: "flex",
+                                justifyContent: "center",
+                                height: `${percentLeftTotalvalue}%`,
+                                width: "100%",
+                                background: `hsl(${percentLeftTotalvalue}, 60%, 51%)`,
+                                color: "white",
+                            }}
+                        >
+                            <div>{`${defaultTotalValue - getTotalValue(valueList)}원 남음`}</div>
+                        </div>
+                    </div>
+                    <div
+                        style={{
+                            display: "flex",
+                            justifyContent: "center",
+                            marginTop: 4,
+                            height: 36,
+                            fontWeight: "bold",
+                        }}
+                    >{`${new Date().toLocaleDateString().split(".")[1]}월 : ${getTotalValue(valueList)}원`}</div>
+                </div>
             </div>
         </div>
     );
