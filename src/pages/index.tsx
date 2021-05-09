@@ -7,7 +7,8 @@ import { imgURLObj, nameTypes, defaultValueList } from "../data";
 import db from "../db";
 
 const Title = styled.div`
-    margin: 16px 0px;
+    padding-top: 16px;
+    margin-bottom: 16px;
     color: black;
     font-size: 28px;
     font-weight: bold;
@@ -67,7 +68,6 @@ export default function Home() {
 
         setValueListFromDB();
     }, []);
-    console.log(new Date().getMonth());
     return (
         <div style={{ margin: "0px 16px" }}>
             <Title>오늘 먹은 점심 값은?</Title>
