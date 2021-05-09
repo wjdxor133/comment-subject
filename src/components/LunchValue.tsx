@@ -1,17 +1,18 @@
-import { imgURLObj, nameTypes } from '../data';
+import { imgURLObj, nameTypes } from "../data";
 
 type LunchValueProps = {
     name: nameTypes;
     value?: string;
+    loading?: boolean;
 };
-const LunchValue = ({ name, value }: LunchValueProps) => {
+const LunchValue = ({ name, value, loading }: LunchValueProps) => {
     return (
         <div
             style={{
-                display: 'flex',
-                alignItems: 'center',
+                display: "flex",
+                alignItems: "center",
                 height: 52,
-                margin: '4px 0px',
+                margin: "4px 0px",
             }}
         >
             <div>
@@ -19,13 +20,13 @@ const LunchValue = ({ name, value }: LunchValueProps) => {
                     style={{
                         height: 36,
                         width: 36,
-                        border: '1px solid whitesmoke',
+                        border: "1px solid whitesmoke",
                         borderRadius: 8,
                     }}
                     src={imgURLObj[name]}
                 />
             </div>
-            <div style={{ marginLeft: 8, height: 36 }}>{value}원</div>
+            <div style={{ marginLeft: 8, height: 36 }}>{loading ? "..." : value}원</div>
         </div>
     );
 };

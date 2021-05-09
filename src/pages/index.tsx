@@ -1,56 +1,71 @@
-import { useState } from 'react';
-import styled from 'styled-components';
-import LunchValue from '../components/LunchValue';
-import { imgURLObj, nameTypes } from '../data';
+import { useEffect, useState } from "react";
+import styled from "styled-components";
+import { query as q } from "faunadb";
+
+import LunchValue from "../components/LunchValue";
+import { imgURLObj, nameTypes, defaultValueList } from "../data";
+import db from "../db";
 
 const Title = styled.div`
     margin: 16px 0px;
     color: black;
-    font-size: 36px;
-    font-family: 'Arial';
+    font-size: 28px;
+    font-weight: bold;
 `;
 
 export default function Home() {
-    const [value, setValue] = useState();
-    const [name, setName] = useState<nameTypes>('강현');
-    const [valueList, setValueList] = useState<any>({
-        강현: '0',
-        경찬: '0',
-        규홍: '0',
-        기석: '0',
-        수민: '0',
-        연진: '0',
-        연문: '0',
-        영호: '0',
-        정욱: '0',
-    });
+    const ref = q.Ref(q.Collection("prices"), "298076617337471490");
+
+    const [loading, setLoading] = useState(false);
+    const [value, setValue] = useState<number>();
+    const [selectedName, setSelectedName] = useState<nameTypes>("강현");
+    const [valueList, setValueList] = useState<any>(defaultValueList);
+
+    const setValueListFromDB = async () => {
+        setLoading(true);
+
+        const { data } = await db.query<any>(q.Get(ref));
+        console.log("data from DB", data);
+        setValueList(data);
+
+        setLoading(false);
+    };
 
     const handleChangeName = (e: any) => {
-        setName(e.target.value);
+        setSelectedName(e.target.value);
     };
     const handleChangeValue = (e: any) => {
         setValue(e.target.value);
     };
-    const handleClick = () => {
+    const handleClick = async () => {
         setValueList((prev: any) => {
-            prev[name] = value;
+            if (value) {
+                if (prev[selectedName]) {
+                    prev[selectedName] += value * 100;
+                } else {
+                    prev[selectedName] = value * 100;
+                }
+            }
             console.log(prev);
             return { ...prev };
         });
+        const { data } = await db.query<any>(
+            q.Update(ref, { data: { ...valueList, [selectedName]: valueList[selectedName] + Number(value) * 100 } })
+        );
+        console.log(data);
     };
 
     const nameList: any = Object.keys(imgURLObj);
 
+    useEffect(() => {
+        setValueListFromDB();
+    }, []);
+
     return (
-        <div style={{ margin: '0px 16px' }}>
-            <Title>
-                오늘 먹은 <span style={{ fontWeight: 'bold' }}>점심</span>값은?
-            </Title>
+        <div style={{ margin: "0px 16px" }}>
+            <Title>오늘 먹은 점심 값은?</Title>
             <div style={{ marginBottom: 16 }}>
-                <select
-                    style={{ marginRight: 16, width: 72, fontSize: 24 }}
-                    onChange={handleChangeName}
-                >
+                <select style={{ marginRight: 16, width: 72, fontSize: 24 }} onChange={handleChangeName}>
                     {nameList.map((name: nameTypes, i: number) => (
                         <option key={i} value={name}>
                             {name}
@@ -58,24 +73,34 @@ export default function Home() {
                     ))}
                 </select>
                 <input
+                    type="number"
                     style={{
-                        width: 88,
-                        border: 'none',
-                        borderBottom: '1px solid grey',
+                        width: 64,
+                        border: "none",
+                        borderBottom: "1px solid grey",
                         fontSize: 24,
                     }}
                     value={value}
                     onChange={handleChangeValue}
                 />
-                <span style={{ fontSize: 24, marginRight: 16 }}>원</span>
+                <span style={{ fontSize: 24, marginRight: 16 }}>00원</span>
                 <button style={{ fontSize: 24 }} onClick={handleClick}>
                     입력
                 </button>
             </div>
-            <div>
-                {nameList.map((name: nameTypes, i: number) => (
-                    <LunchValue key={i} name={name} value={valueList[name]} />
-                ))}
+            <div style={{ display: "flex" }}>
+                <div style={{ flex: 1, borderRight: "1px solid grey" }}>
+                    {nameList.map((name: nameTypes, i: number) => (
+                        <LunchValue
+                            key={i}
+                            name={name}
+                            isSelected={selectedName}
+                            value={valueList[name]}
+                            loading={loading}
+                        />
+                    ))}
+                </div>
+                <div style={{ flex: 1 }}>총합</div>
             </div>
         </div>
     );
