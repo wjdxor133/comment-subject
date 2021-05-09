@@ -20,7 +20,7 @@ export default function Home() {
     const nameList: any = Object.keys(imgURLObj);
 
     const [loading, setLoading] = useState(false);
-    const [value, setValue] = useState<number>();
+    const [value, setValue] = useState<any>();
     const [selectedName, setSelectedName] = useState<nameTypes>("강현");
     const [valueList, setValueList] = useState<any>(defaultValueList);
 
@@ -48,7 +48,7 @@ export default function Home() {
             q.Update(ref, { data: { ...valueList, [selectedName]: valueList[selectedName] + Number(value) * 100 } })
         );
         setValueList(data);
-        setValue(undefined);
+        setValue("");
 
         setLoading(false);
     };
@@ -69,6 +69,8 @@ export default function Home() {
 
         setValueListFromDB();
     }, []);
+
+    console.log(value);
     return (
         <div style={{ margin: "0px 16px" }}>
             <Title>오늘 먹은 점심 값은?</Title>
