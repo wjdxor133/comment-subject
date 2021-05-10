@@ -1,10 +1,10 @@
-import { useEffect, useState } from "react";
-import styled from "styled-components";
-import { query as q } from "faunadb";
+import { useEffect, useState } from 'react';
+import styled from 'styled-components';
+import { query as q } from 'faunadb';
 
-import LunchValue from "../components/LunchValue";
-import { imgURLObj, nameTypes, defaultValueList } from "../data";
-import db from "../db";
+import LunchValue from '../components/LunchValue';
+import { imgURLObj, nameTypes, defaultValueList } from '../data';
+import db from '../db';
 
 const Title = styled.div`
     padding-top: 16px;
@@ -16,19 +16,18 @@ const Title = styled.div`
 
 export default function Home() {
     const defaultTotalValue = 1350000;
-    const ref = q.Ref(q.Collection("prices"), "298076617337471490");
+    const ref = q.Ref(q.Collection('prices'), '298076617337471490');
     const nameList: any = Object.keys(imgURLObj);
 
     const [loading, setLoading] = useState(false);
     const [value, setValue] = useState<any>();
-    const [selectedName, setSelectedName] = useState<nameTypes>("강현");
+    const [selectedName, setSelectedName] = useState<nameTypes>('강현');
     const [valueList, setValueList] = useState<any>(defaultValueList);
-
     const setValueListFromDB = async () => {
         setLoading(true);
 
         const { data } = await db.query<any>(q.Get(ref));
-        console.log("data from DB", data);
+        console.log('data from DB', data);
         setValueList(data);
 
         setLoading(false);
@@ -36,7 +35,7 @@ export default function Home() {
 
     const handleChangeName = (e: any) => {
         setSelectedName(e.target.value);
-        localStorage.setItem("defaultSelectedName", e.target.value);
+        localStorage.setItem('defaultSelectedName', e.target.value);
     };
     const handleChangeValue = (e: any) => {
         setValue(e.target.value);
@@ -45,10 +44,16 @@ export default function Home() {
         setLoading(true);
 
         const { data } = await db.query<any>(
-            q.Update(ref, { data: { ...valueList, [selectedName]: valueList[selectedName] + Number(value) * 100 } })
+            q.Update(ref, {
+                data: {
+                    ...valueList,
+                    [selectedName]:
+                        valueList[selectedName] + Number(value) * 100,
+                },
+            })
         );
         setValueList(data);
-        setValue("");
+        setValue('');
 
         setLoading(false);
     };
@@ -59,20 +64,23 @@ export default function Home() {
     };
 
     const percentLeftTotalvalue = Math.floor(
-        ((defaultTotalValue - getTotalValue(valueList)) / defaultTotalValue) * 100
+        ((defaultTotalValue - getTotalValue(valueList)) / defaultTotalValue) *
+            100
     );
 
     useEffect(() => {
-        const defaultSelectedName: any = localStorage.getItem("defaultSelectedName");
+        const defaultSelectedName: any = localStorage.getItem(
+            'defaultSelectedName'
+        );
         console.log(defaultSelectedName);
-        setSelectedName(defaultSelectedName || "강현");
+        setSelectedName(defaultSelectedName || '강현');
 
         setValueListFromDB();
     }, []);
 
     console.log(value);
     return (
-        <div style={{ margin: "0px 16px" }}>
+        <div style={{ margin: '0px 16px' }}>
             <Title>오늘 먹은 점심 값은?</Title>
             <div style={{ marginBottom: 16, height: 36 }}>
                 <select
@@ -80,24 +88,28 @@ export default function Home() {
                         marginRight: 16,
                         height: 36,
                         width: 72,
-                        border: "1px solid grey",
+                        border: '1px solid grey',
                         borderRadius: 8,
                         fontSize: 20,
                     }}
                     onChange={handleChangeName}
                 >
                     {nameList.map((name: nameTypes, i: number) => (
-                        <option key={i} value={name} selected={name == selectedName}>
+                        <option
+                            key={i}
+                            value={name}
+                            selected={name == selectedName}
+                        >
                             {name}
                         </option>
                     ))}
                 </select>
                 <input
-                    type="number"
+                    type='number'
                     style={{
                         width: 64,
-                        border: "none",
-                        borderBottom: "1px solid grey",
+                        border: 'none',
+                        borderBottom: '1px solid grey',
                         fontSize: 20,
                     }}
                     value={value}
@@ -108,9 +120,9 @@ export default function Home() {
                     style={{
                         height: 36,
                         width: 64,
-                        border: "1px solid grey",
+                        border: '1px solid grey',
                         borderRadius: 8,
-                        background: "white",
+                        background: 'white',
                         fontSize: 20,
                     }}
                     disabled={loading}
@@ -119,7 +131,7 @@ export default function Home() {
                     입력
                 </button>
             </div>
-            <div style={{ display: "flex", height: "90%" }}>
+            <div style={{ display: 'flex', height: '90%' }}>
                 <div style={{ flex: 1 }}>
                     {nameList.map((name: nameTypes, i: number) => (
                         <LunchValue
@@ -127,41 +139,48 @@ export default function Home() {
                             name={name}
                             isSelected={selectedName == name}
                             value={valueList[name]}
+                            valueList={valueList}
+                            setValueList={setValueList}
                             loading={loading}
+                            setLoading={setLoading}
                         />
                     ))}
                 </div>
                 <div style={{ flex: 1 }}>
                     <div
                         style={{
-                            display: "flex",
-                            flexDirection: "column-reverse",
-                            height: "calc(100% - 36px)",
-                            width: "100%",
+                            display: 'flex',
+                            flexDirection: 'column-reverse',
+                            height: 'calc(100% - 36px)',
+                            width: '100%',
                         }}
                     >
                         <div
                             style={{
-                                display: "flex",
-                                justifyContent: "center",
+                                display: 'flex',
+                                justifyContent: 'center',
                                 height: `${percentLeftTotalvalue}%`,
-                                width: "100%",
+                                width: '100%',
                                 background: `hsl(${percentLeftTotalvalue}, 60%, 51%)`,
-                                color: "white",
+                                color: 'white',
                             }}
                         >
-                            <div>{`${defaultTotalValue - getTotalValue(valueList)}원 남음`}</div>
+                            <div>{`${
+                                defaultTotalValue - getTotalValue(valueList)
+                            }원 남음`}</div>
                         </div>
                     </div>
                     <div
                         style={{
-                            display: "flex",
-                            justifyContent: "center",
+                            display: 'flex',
+                            justifyContent: 'center',
                             marginTop: 4,
                             height: 36,
-                            fontWeight: "bold",
+                            fontWeight: 'bold',
                         }}
-                    >{`${new Date().getMonth() + 1}월 : ${getTotalValue(valueList)}원`}</div>
+                    >{`${new Date().getMonth() + 1}월 : ${getTotalValue(
+                        valueList
+                    )}원`}</div>
                 </div>
             </div>
         </div>
