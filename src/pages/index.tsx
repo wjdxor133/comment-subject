@@ -47,8 +47,7 @@ export default function Home() {
             q.Update(ref, {
                 data: {
                     ...valueList,
-                    [selectedName]:
-                        valueList[selectedName] + Number(value) * 100,
+                    [selectedName]: valueList[selectedName] + Number(value),
                 },
             })
         );
@@ -107,7 +106,7 @@ export default function Home() {
                 <input
                     type='number'
                     style={{
-                        width: 64,
+                        width: 80,
                         border: 'none',
                         borderBottom: '1px solid grey',
                         fontSize: 20,
@@ -115,7 +114,7 @@ export default function Home() {
                     value={value}
                     onChange={handleChangeValue}
                 />
-                <span style={{ fontSize: 20, marginRight: 16 }}>00원</span>
+                <span style={{ fontSize: 20, marginRight: 16 }}>원</span>
                 <button
                     style={{
                         height: 36,
