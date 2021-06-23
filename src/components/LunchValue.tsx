@@ -44,7 +44,7 @@ const LunchValue = ({
             style={{
                 display: 'flex',
                 alignItems: 'center',
-                height: 48,
+                height: 44,
                 margin: '6px 0px',
             }}
         >

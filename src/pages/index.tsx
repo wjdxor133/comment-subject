@@ -81,7 +81,7 @@ export default function Home() {
     return (
         <div style={{ margin: '0px 16px' }}>
             <Title>오늘 먹은 점심 값은?</Title>
-            <div style={{ marginBottom: 16, height: 36 }}>
+            <div style={{ marginBottom: 8, height: 36 }}>
                 <select
                     style={{
                         marginRight: 16,
