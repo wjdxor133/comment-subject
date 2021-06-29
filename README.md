@@ -1,28 +1,11 @@
-# TypeScript & Styled Components Next.js example
+1. local 에 클론받으시고 
+2. 해당 디렉토리에서 yarn install 후 yarn dev 실행
+3. localhost:3000 번에서 페이지 접속 가능하십니다
 
-This is a really simple project that show the usage of Next.js with TypeScript and Styled Components.
+1주차 과제 보충설명 드립니다
+- 코드 살펴보는 것
+- atomic design 원칙 블로그 글 읽으며 이해하기
+- figma 링크 보면서 컴포넌트를 어떻게 쪼개야(atomic design 원칙에 맞춰서 분류해야) 할지 고민 후 문서 작성하기
+(문서는 컴포넌트 이름을 짓고, 각 카테고리인 atoms, molecules, organisms 에 맞춰서 컴포넌트를 분류해서 작성합니다)
 
-## Deploy your own
-
-Deploy the example using [Vercel](https://vercel.com?utm_source=github&utm_medium=readme&utm_campaign=next-example):
-
-[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/git/external?repository-url=https://github.com/vercel/next.js/tree/canary/examples/with-typescript-styled-components&project-name=with-typescript-styled-components&repository-name=with-typescript-styled-components)
-
-## How to use it?
-
-Execute [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app) with [npm](https://docs.npmjs.com/cli/init) or [Yarn](https://yarnpkg.com/lang/en/docs/cli/create/) to bootstrap the example:
-
-```bash
-npx create-next-app --example with-typescript-styled-components with-typescript-styled-components-app
-# or
-yarn create next-app --example with-typescript-styled-components with-typescript-styled-components-app
-```
-
-Deploy it to the cloud with [Vercel](https://vercel.com/new?utm_source=github&utm_medium=readme&utm_campaign=next-example) ([Documentation](https://nextjs.org/docs/deployment)).
-
-## Notes
-
-This is an amalgamation of the 2 existing examples:
-
-- [with-typescript](https://github.com/vercel/next.js/tree/canary/examples/with-typescript)
-- [with-styled-components](https://github.com/vercel/next.js/tree/canary/examples/with-styled-components)
+위 3가지 과제로 진행해주시면 됩니다

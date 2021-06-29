@@ -16,7 +16,7 @@ const Title = styled.div`
 
 export default function Home() {
     const defaultTotalValue = 450000;
-    const ref = q.Ref(q.Collection('prices'), '298076617337471490');
+    const ref = q.Ref(q.Collection('prices'), '302723263708004873');
     const nameList: any = Object.keys(imgURLObj);
 
     const [loading, setLoading] = useState(false);
@@ -72,7 +72,7 @@ export default function Home() {
             'defaultSelectedName'
         );
         console.log(defaultSelectedName);
-        setSelectedName(defaultSelectedName || '강현');
+        setSelectedName(defaultSelectedName || '태양');
 
         setValueListFromDB();
     }, []);
