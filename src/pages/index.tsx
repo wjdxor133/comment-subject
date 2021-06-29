@@ -15,13 +15,13 @@ const Title = styled.div`
 `;
 
 export default function Home() {
-    const defaultTotalValue = 1350000;
+    const defaultTotalValue = 450000;
     const ref = q.Ref(q.Collection('prices'), '298076617337471490');
     const nameList: any = Object.keys(imgURLObj);
 
     const [loading, setLoading] = useState(false);
     const [value, setValue] = useState<any>();
-    const [selectedName, setSelectedName] = useState<nameTypes>('강현');
+    const [selectedName, setSelectedName] = useState<nameTypes>('태양');
     const [valueList, setValueList] = useState<any>(defaultValueList);
     const setValueListFromDB = async () => {
         setLoading(true);
