@@ -1,10 +1,11 @@
 import { query as q } from 'faunadb';
+import { COLLECTION_REF } from '../constant';
+import { imgURLObj } from '../data';
 
-import { imgURLObj, nameTypes } from '../data';
 import db from '../db';
 
 type LunchValueProps = {
-    name: nameTypes;
+    name: string;
     isSelected: boolean;
     value?: string;
     valueList?: any;
@@ -21,7 +22,7 @@ const LunchValue = ({
     loading,
     setLoading,
 }: LunchValueProps) => {
-    const ref = q.Ref(q.Collection('prices'), '298076617337471490');
+    const ref = q.Ref(q.Collection('prices'), COLLECTION_REF);
     const handleClickToResetValue = async () => {
         if (isSelected) {
             setLoading(true);
@@ -39,6 +40,7 @@ const LunchValue = ({
             setLoading(false);
         }
     };
+
     return (
         <div
             style={{

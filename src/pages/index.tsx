@@ -2,9 +2,11 @@ import { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import { query as q } from 'faunadb';
 
-import LunchValue from '../components/LunchValue';
-import { imgURLObj, nameTypes, defaultValueList } from '../data';
 import db from '../db';
+import { getTotalValue } from '../util';
+import { defaultValueList } from '../data';
+import { COLLECTION_REF } from '../constant';
+import LunchValue from '../components/LunchValue';
 
 const Title = styled.div`
     padding-top: 16px;
@@ -15,13 +17,12 @@ const Title = styled.div`
 `;
 
 export default function Home() {
-    const defaultTotalValue = 450000;
-    const ref = q.Ref(q.Collection('prices'), '302723263708004873');
-    const nameList: any = Object.keys(imgURLObj);
+    const ref = q.Ref(q.Collection('prices'), COLLECTION_REF);
+    const nameList: any = Object.keys(defaultValueList);
 
     const [loading, setLoading] = useState(false);
     const [value, setValue] = useState<any>();
-    const [selectedName, setSelectedName] = useState<nameTypes>('태양');
+    const [selectedName, setSelectedName] = useState(nameList[0]);
     const [valueList, setValueList] = useState<any>(defaultValueList);
     const setValueListFromDB = async () => {
         setLoading(true);
@@ -57,27 +58,22 @@ export default function Home() {
         setLoading(false);
     };
 
-    const getTotalValue: any = (valueList: any) => {
-        const values = Object.values(valueList);
-        return values.reduce((acc: any, cur) => acc + cur, 0);
-    };
-
-    const percentLeftTotalvalue = Math.floor(
-        ((defaultTotalValue - getTotalValue(valueList)) / defaultTotalValue) *
-            100
-    );
-
     useEffect(() => {
         const defaultSelectedName: any = localStorage.getItem(
             'defaultSelectedName'
         );
         console.log(defaultSelectedName);
-        setSelectedName(defaultSelectedName || '태양');
+        setSelectedName(defaultSelectedName || nameList[0]);
 
         setValueListFromDB();
     }, []);
 
-    console.log(value);
+    const defaultTotalValue = nameList.length * 150000;
+    const percentLeftTotalvalue = Math.floor(
+        ((defaultTotalValue - getTotalValue(valueList)) / defaultTotalValue) *
+            100
+    );
+
     return (
         <div style={{ margin: '0px 16px' }}>
             <Title>오늘 먹은 점심 값은?</Title>
@@ -91,14 +87,11 @@ export default function Home() {
                         borderRadius: 8,
                         fontSize: 20,
                     }}
+                    value={selectedName}
                     onChange={handleChangeName}
                 >
-                    {nameList.map((name: nameTypes, i: number) => (
-                        <option
-                            key={i}
-                            value={name}
-                            selected={name == selectedName}
-                        >
+                    {nameList.map((name: string) => (
+                        <option key={name} value={name}>
                             {name}
                         </option>
                     ))}
@@ -132,7 +125,7 @@ export default function Home() {
             </div>
             <div style={{ display: 'flex', height: '90%' }}>
                 <div style={{ flex: 1 }}>
-                    {nameList.map((name: nameTypes, i: number) => (
+                    {nameList.map((name: string, i: number) => (
                         <LunchValue
                             key={i}
                             name={name}
