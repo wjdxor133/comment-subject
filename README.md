@@ -24,3 +24,4 @@
 
 -   컴포넌트 설계 문서
     (문서는 컴포넌트 이름을 짓고, 각 카테고리인 atoms, molecules, organisms 등에 맞춰 컴포넌트를 분류해서 작성합니다)
+-   fork 하신 본인의 git repository 
