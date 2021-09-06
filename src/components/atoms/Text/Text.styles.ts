@@ -7,4 +7,5 @@ export const TextStyles = styled.div<TextProps>`
   color: black;
   font-size: 28px;
   font-weight: bold;
+  color: ${({ color }) => (color === "white" ? "#FFFFFF" : "#000000")};
 `;
