@@ -1,3 +1,5 @@
 import styled from "styled-components";
 
-export const TagListStyles = styled.ul``;
+export const TagListStyles = styled.ul`
+  flex: 1;
+`;

@@ -1,7 +1,7 @@
 import Avatar from "./Avatar/Avatar";
 import Button from "./Button/Button";
 import Input from "./Input/Input";
-import Select from "./Select/Select";
+import Option from "./Option/Option";
 import Text from "./Text/Text";
 
-export { Avatar, Button, Input, Select, Text };
+export { Avatar, Button, Input, Option, Text };

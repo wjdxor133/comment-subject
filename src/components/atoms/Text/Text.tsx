@@ -4,13 +4,21 @@ import { TextStyles } from "./Text.styles";
 export interface TextProps {
   as: "h3" | "span" | "p";
   typography: "large" | "regular" | "small";
+  weight?: "bold";
   color: "black" | "white";
+  align?: "center" | "right";
   children: string;
 }
 
-function Text({ as, typography, color, children }: TextProps) {
+function Text({ as, typography, weight, color, align, children }: TextProps) {
   return (
-    <TextStyles as={as} typography={typography} color={color}>
+    <TextStyles
+      as={as}
+      typography={typography}
+      weight={weight}
+      color={color}
+      align={align}
+    >
       {children}
     </TextStyles>
   );
