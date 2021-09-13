@@ -1,7 +1,7 @@
 import React from "react";
 import styled, { css } from "styled-components";
 
-export interface TextProps {
+interface TextProps {
   as: "h3" | "span" | "p";
   typography: "large" | "regular" | "small";
   weight?: "bold";
@@ -26,7 +26,7 @@ function Text({ as, typography, weight, color, align, children }: TextProps) {
 
 export default Text;
 
-export const TextStyles = styled.div<TextProps>`
+const TextStyles = styled.div<TextProps>`
   color: black;
   font-weight: bold;
   color: ${({ color }) => (color === "white" ? "#FFFFFF" : "#000000")};

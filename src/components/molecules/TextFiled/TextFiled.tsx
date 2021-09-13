@@ -2,7 +2,7 @@ import React, { ChangeEvent } from "react";
 import styled from "styled-components";
 import { Text, Input } from "components/atoms";
 
-export interface TextFiledProps {
+interface TextFiledProps {
   type: string;
   value: string;
   onChange: (e: ChangeEvent<HTMLInputElement>) => void;
@@ -21,7 +21,7 @@ function TextFiled({ type, value, onChange }: TextFiledProps) {
 
 export default TextFiled;
 
-export const TextFiledStyles = styled.div`
+const TextFiledStyles = styled.div`
   display: flex;
   align-items: center;
   column-gap: 8px;

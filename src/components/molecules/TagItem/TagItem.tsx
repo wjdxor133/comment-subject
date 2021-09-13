@@ -4,7 +4,7 @@ import { Avatar, Text } from "components/atoms";
 import { query as q } from "faunadb";
 import db from "db";
 
-export interface TagItemProps {
+interface TagItemProps {
   name: string;
   isSelected?: boolean;
   value: string;
@@ -69,7 +69,7 @@ function TagItem({
 
 export default TagItem;
 
-export const TagItemStyles = styled.li`
+const TagItemStyles = styled.li`
   display: flex;
   align-items: center;
   column-gap: 8px;

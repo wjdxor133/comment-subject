@@ -1,18 +1,19 @@
-import React from "react";
+import React, { ButtonHTMLAttributes, forwardRef } from "react";
 import styled from "styled-components";
 
-export interface ButtonProps {
-  children: string;
-  onClick: () => void;
-}
+interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {}
 
-function Button({ children, onClick }: ButtonProps) {
-  return <ButtonStyles onClick={onClick}>{children}</ButtonStyles>;
-}
+const Button = forwardRef<HTMLButtonElement, ButtonProps>(
+  ({ children, onClick, ...props }, ref) => (
+    <ButtonStyles {...props} ref={ref} onClick={onClick}>
+      {children}
+    </ButtonStyles>
+  )
+);
 
 export default Button;
 
-export const ButtonStyles = styled.button`
+const ButtonStyles = styled.button`
   height: 36px;
   width: 64px;
   border: 1px solid grey;

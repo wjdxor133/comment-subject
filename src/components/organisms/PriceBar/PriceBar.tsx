@@ -8,13 +8,12 @@ import { nameListState, valueListState } from "components/state";
 
 function PriceBar() {
   const nameList = useRecoilValue<string[]>(nameListState);
-  const defaultTotalValue = nameList.length * 150000;
   const valueList = useRecoilValue<any>(valueListState);
 
   return (
     <PriceBarStyles>
       <Bar
-        defaultTotalValue={defaultTotalValue}
+        nameList={nameList}
         valueList={valueList}
         getTotalValue={getTotalValue}
       />

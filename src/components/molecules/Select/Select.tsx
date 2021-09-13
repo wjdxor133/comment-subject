@@ -2,7 +2,7 @@ import React, { ChangeEvent } from "react";
 import styled from "styled-components";
 import { Option } from "components/atoms";
 
-export interface SelectProps {
+interface SelectProps {
   nameList: string[];
   value: string;
   onChange: (e: ChangeEvent<HTMLSelectElement>) => void;
@@ -22,7 +22,7 @@ function Select({ nameList, value, onChange }: SelectProps) {
 
 export default Select;
 
-export const SelectStyle = styled.select`
+const SelectStyle = styled.select`
   margin-right: 16px;
   height: 36px;
   width: 72px;

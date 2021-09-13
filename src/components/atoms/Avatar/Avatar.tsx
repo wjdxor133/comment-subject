@@ -15,7 +15,7 @@ function Avatar({ src, alt, isSelected }: AvatarProps) {
 
 export default Avatar;
 
-export const AvatarStyles = styled.img<AvatarProps>`
+const AvatarStyles = styled.img<AvatarProps>`
   display: flex;
   align-items: center;
   height: 40px;

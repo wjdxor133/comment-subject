@@ -1,7 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 
-export interface OptionProps {
+interface OptionProps {
   value: string;
   children: string;
 }
@@ -12,4 +12,4 @@ function Option({ value, children }: OptionProps) {
 
 export default Option;
 
-export const OptionStyles = styled.option``;
+const OptionStyles = styled.option``;
