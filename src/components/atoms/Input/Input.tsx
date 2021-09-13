@@ -1,5 +1,5 @@
 import React, { ChangeEvent } from "react";
-import { InputStyles } from "./Input.styles";
+import styled from "styled-components";
 
 export interface InputProps {
   type: string;
@@ -14,3 +14,10 @@ function Input({ type, value, onChange }: InputProps) {
 }
 
 export default Input;
+
+export const InputStyles = styled.input`
+  width: 80px;
+  border: none;
+  border-bottom: 1px solid grey;
+  font-size: 20px;
+`;

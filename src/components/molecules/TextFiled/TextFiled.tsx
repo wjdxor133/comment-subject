@@ -1,5 +1,5 @@
 import React, { ChangeEvent } from "react";
-import { TextFiledStyles } from "./TextFiled.styles";
+import styled from "styled-components";
 import { Text, Input } from "components/atoms";
 
 export interface TextFiledProps {
@@ -20,3 +20,9 @@ function TextFiled({ type, value, onChange }: TextFiledProps) {
 }
 
 export default TextFiled;
+
+export const TextFiledStyles = styled.div`
+  display: flex;
+  align-items: center;
+  column-gap: 8px;
+`;

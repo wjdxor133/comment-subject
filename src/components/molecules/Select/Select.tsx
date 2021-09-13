@@ -1,5 +1,5 @@
 import React, { ChangeEvent } from "react";
-import { SelectStyle } from "./Select.styles";
+import styled from "styled-components";
 import { Option } from "components/atoms";
 
 export interface SelectProps {
@@ -21,3 +21,13 @@ function Select({ nameList, value, onChange }: SelectProps) {
 }
 
 export default Select;
+
+export const SelectStyle = styled.select`
+  margin-right: 16px;
+  height: 36px;
+  width: 72px;
+  border: 1px solid grey;
+  border-radius: 8px;
+  font-size: 20px;
+  cursor: pointer;
+`;

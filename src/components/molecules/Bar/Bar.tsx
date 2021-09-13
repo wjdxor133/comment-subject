@@ -1,5 +1,5 @@
 import React from "react";
-import { BarStyles } from "./Bar.styles";
+import styled from "styled-components";
 import { Text } from "components/atoms";
 
 export interface BarProps {
@@ -26,3 +26,11 @@ function Bar({ defaultTotalValue, valueList, getTotalValue }: BarProps) {
 }
 
 export default Bar;
+
+export const BarStyles = styled.div<{ percentLeftTotalValue: number }>`
+  display: flex;
+  justify-content: center;
+  height: ${({ percentLeftTotalValue }) => `${percentLeftTotalValue}%`};
+  background: ${({ percentLeftTotalValue }) =>
+    `hsl(${percentLeftTotalValue}, 60%, 51%)`};
+`;

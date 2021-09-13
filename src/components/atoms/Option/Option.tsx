@@ -1,5 +1,5 @@
 import React from "react";
-import { OptionStyles } from "./Option.styles";
+import styled from "styled-components";
 
 export interface OptionProps {
   value: string;
@@ -11,3 +11,5 @@ function Option({ value, children }: OptionProps) {
 }
 
 export default Option;
+
+export const OptionStyles = styled.option``;

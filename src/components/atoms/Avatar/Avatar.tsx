@@ -1,7 +1,7 @@
 import React from "react";
-import { AvatarStyles } from "./Avatar.styles";
+import styled from "styled-components";
 
-export interface AvatarProps {
+interface AvatarProps {
   src: string;
   alt: string;
   isSelected?: boolean;
@@ -14,3 +14,12 @@ function Avatar({ src, alt, isSelected }: AvatarProps) {
 }
 
 export default Avatar;
+
+export const AvatarStyles = styled.img<AvatarProps>`
+  display: flex;
+  align-items: center;
+  height: 40px;
+  width: 40px;
+  border: ${({ isSelected }) => isSelected && "2px solid grey"};
+  border-radius: 8px;
+`;

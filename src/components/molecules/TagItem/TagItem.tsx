@@ -1,5 +1,5 @@
 import React from "react";
-import { TagItemStyles } from "./TagItem.styles";
+import styled from "styled-components";
 import { Avatar, Text } from "components/atoms";
 import { query as q } from "faunadb";
 import db from "db";
@@ -68,3 +68,9 @@ function TagItem({
 }
 
 export default TagItem;
+
+export const TagItemStyles = styled.li`
+  display: flex;
+  align-items: center;
+  column-gap: 8px;
+`;
